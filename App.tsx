@@ -1,21 +1,28 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
 
 import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-
+import { StatusBar, StyleSheet, useColorScheme, View ,Text} from 'react-native';
+import HomeScreen from './screen/HomeScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import bottomNavigation from './screen/bottomNavigation';
+import user from './screen/user';
+import login from './screen/login';
+import register from './screen/register';
+import ScanGarbage from './screen/ScanGarbage';
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
+  const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+         <Stack.Screen name="login" component={login} />
+        <Stack.Screen name="bottomNavigation" component={bottomNavigation} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="user" component={user} />
+        <Stack.Screen name="register" component={register} />
+        <Stack.Screen name="ScanGarbage" component={ScanGarbage} /> 
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
