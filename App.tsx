@@ -9,6 +9,7 @@ import user from './screen/user';
 import login from './screen/login';
 import register from './screen/register';
 import ScanGarbage from './screen/ScanGarbage';
+import PhoneAuth from './screen/PhoneAuth';
 function App() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
@@ -20,7 +21,7 @@ function App() {
         <Stack.Screen name="user" component={user} />
         <Stack.Screen name="register" component={register} />
         <Stack.Screen name="ScanGarbage" component={ScanGarbage} /> 
-
+        <Stack.Screen name="PhoneAuth" component={PhoneAuth} />
       </Stack.Navigator>
     </NavigationContainer>
   );

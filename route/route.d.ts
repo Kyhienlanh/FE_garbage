@@ -5,6 +5,7 @@ type RootStackParamList = {
   login: undefined;
   register: undefined;
   ScanGarbage: undefined;
+  PhoneAuth: undefined;
 //   loginNote: undefined;
 //   RegisterNote: undefined;
 //   category:undefined|{  onSelectCategory: (category: { categoryId: string; type: 'income' | 'expense' }) => void};

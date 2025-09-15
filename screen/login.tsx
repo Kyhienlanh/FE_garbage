@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 const Login = () => {
-  const navigation: any = useNavigation();
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const [isSelected, setSelection] = useState(false);
 
   return (
@@ -42,8 +42,8 @@ const Login = () => {
           {/* Remember + Forgot */}
           <View style={styles.rowBetween}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={styles.checkbox}></View>
-              <Text style={{ marginLeft: 6 }}>Ghi nhớ</Text>
+              {/* <View style={styles.checkbox}></View>
+              <Text style={{ marginLeft: 6 }}>Ghi nhớ</Text> */}
             </View>
             <TouchableOpacity>
               <Text style={{ color: 'green' }}>Quên mật khẩu?</Text>
@@ -66,8 +66,11 @@ const Login = () => {
             <TouchableOpacity style={styles.socialBtn}>
               <Text>G</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.socialBtn}>
-              <Text></Text>
+            <TouchableOpacity 
+              style={styles.socialBtn} 
+              onPress={() => navigation.navigate('PhoneAuth')}
+            >
+              <Ionicons name="call-outline" size={24} color="#06be34ff" />
             </TouchableOpacity>
           </View>
            <TouchableOpacity  onPress={() => navigation.navigate('register')}>

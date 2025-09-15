@@ -85,6 +85,9 @@ android {
         versionCode 1
         versionName "1.0"
         missingDimensionStrategy 'react-native-camera', 'general'
+        manifestPlaceholders = [
+            appAuthRedirectScheme: "com.googleusercontent.apps.946669341689-jc6sjrca4qaao4m75umaa73lk4hc30l4.apps.googleusercontent.com"
+        ]
     }
     signingConfigs {
         debug {
