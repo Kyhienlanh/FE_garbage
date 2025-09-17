@@ -25,7 +25,7 @@ const Register = () => {
   // Gửi thông tin user về API
   const postUid = async (username: string, password: string, uid: string) => {
     try {
-      const response = await fetch(`${Config.API_BASE_URL}/api/Users`, {
+      const response = await fetch(`${Config.API_BASE_URL}/Users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -175,7 +175,6 @@ const Register = () => {
             <TouchableOpacity style={styles.socialBtn} onPress={() => navigation.navigate('PhoneAuth')}>
               <Ionicons name="call-outline" size={24} color="#06be34ff" />
             </TouchableOpacity>
-           
           </View>
         </View>
       </ScrollView>

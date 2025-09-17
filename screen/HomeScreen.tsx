@@ -1,16 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import auth from '@react-native-firebase/auth';
+import config from '../config/config';
+import { User } from '../types/User';
 
 const HomeScreen = () => {
+  const user = auth().currentUser;
+  const [infor,SetInfor]=useState<User>();
+  const getUser= async(uid:any) => {
+    try{
+        const response = await fetch(`${config.API_BASE_URL}/Users/firebase/${uid}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+        const json = await response.json();
+        SetInfor(json);
+        console.log('✅ getUser json:', infor?.points);
+    }catch(error){
+      console.log('❌ getUser lỗi:', error);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerTop}>
-            <Text style={styles.userName}>Chưa đặt tên</Text>
+            <Text style={styles.userName}>{user?.uid}</Text>
+
             <View style={styles.icons}>
               <Ionicons name="search-outline" size={22} color="white" style={styles.icon} />
               <Ionicons name="notifications-outline" size={22} color="white" style={styles.icon} />
@@ -18,6 +39,7 @@ const HomeScreen = () => {
             </View>
           </View>
           <Text style={styles.point}>30 Điểm</Text>
+            <Text onPress={()=>getUser(user?.uid)}>test</Text>
         </View>
         {/* Menu 4 nút tròn */}
         <View style={styles.circleMenu}>
