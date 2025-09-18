@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
 import config from '../config/config';
 import { User } from '../types/User';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
   const user = auth().currentUser;
+  const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const [infor,SetInfor]=useState<User>();
-  const getUser= async(uid:any) => {
+    const getUser= async(uid:any) => {
     try{
         const response = await fetch(`${config.API_BASE_URL}/Users/firebase/${uid}`);
           if (!response.ok) {
@@ -21,6 +23,28 @@ const HomeScreen = () => {
       console.log('❌ getUser lỗi:', error);
     }
   }
+  const PaymentQRcode =()=>{
+    navigation.navigate('PaymentQRCode');
+  }
+  const ScanQRCode =()=>{
+    navigation.navigate('ScanQRCode');
+  }
+  const CollectPoints =()=>{
+    navigation.navigate('ScanQRCode');
+  }
+  const NearbyOffers =()=>{
+    navigation.navigate('ScanQRCode');
+  }
+  useEffect(() => {
+    if(user==null){
+        navigation.navigate('login');
+        return;
+    }
+    else{
+      getUser(user?.uid);
+    }
+  }
+  , []);
 
   return (
     <View style={styles.container}>
@@ -30,7 +54,7 @@ const HomeScreen = () => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerTop}>
-            <Text style={styles.userName}>{user?.uid}</Text>
+            <Text style={styles.userName}>{infor?.fullName}</Text>
 
             <View style={styles.icons}>
               <Ionicons name="search-outline" size={22} color="white" style={styles.icon} />
@@ -38,23 +62,28 @@ const HomeScreen = () => {
               <Ionicons name="cart-outline" size={22} color="white" style={styles.icon} />
             </View>
           </View>
-          <Text style={styles.point}>30 Điểm</Text>
-            <Text onPress={()=>getUser(user?.uid)}>test</Text>
+          <Text style={styles.point}>{infor?.points} điểm</Text>
+          {/* <Text onPress={()=>getUser(user?.uid)}>test</Text> */}
         </View>
         {/* Menu 4 nút tròn */}
         <View style={styles.circleMenu}>
           {[
-            { icon: "qr-code-outline", label: "Nhận mã nạp điểm" },
-            { icon: "star-outline", label: "Tích điểm MPoint" },
-            { icon: "card-outline", label: "Thanh toán điểm" },
-            { icon: "gift-outline", label: "Ưu đãi quanh đây" }
+            { icon: "qr-code-outline", label: "Nhận mã nạp điểm", onPress: ScanQRCode },
+            { icon: "star-outline", label: "Tích điểm MPoint", onPress: CollectPoints },
+            { icon: "card-outline", label: "Thanh toán điểm", onPress: PaymentQRcode },
+            { icon: "gift-outline", label: "Ưu đãi quanh đây", onPress: NearbyOffers }
           ].map((item, index) => (
-            <TouchableOpacity key={index} style={styles.circleItem}>
+            <TouchableOpacity 
+              key={index} 
+              style={styles.circleItem} 
+              onPress={item.onPress} // dùng hàm riêng cho từng item
+            >
               <Ionicons name={item.icon} size={28} color="green" />
               <Text style={styles.circleText}>{item.label}</Text>
             </TouchableOpacity>
           ))}
         </View>
+
 
         {/* Menu 3 ô vuông */}
         <View style={styles.squareMenu}>

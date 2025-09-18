@@ -1,61 +1,86 @@
-import { StyleSheet, Text, View, Button, Image } from 'react-native'
-import React, { useState } from 'react'
-import { launchCamera } from 'react-native-image-picker'
+  import React, { useEffect } from "react";
+  import { PermissionsAndroid, Platform } from "react-native";
+  import { launchCamera } from "react-native-image-picker";
+  import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+  import { useNavigation } from "@react-navigation/native";
+  import { ScanResult } from "../types/Detection"; // 👈 import interface
 
-const ScanGarbage = () => {
-  const [photo, setPhoto] = useState<any>(null)
+  type NavigationProp = NativeStackNavigationProp<RootStackParamList, "ScanGarbage">;
 
-  const openCamera = () => {
-    launchCamera(
-      {
-        mediaType: 'photo',
-        cameraType: 'back',
-        saveToPhotos: true,
-      },
-      (response) => {
-        if (response.didCancel) {
-          console.log('User cancelled camera')
-        } else if (response.errorCode) {
-          console.log('Camera Error: ', response.errorMessage)
-        } else {
-          const source = response.assets?.[0].uri
-          setPhoto(source)
+  const ScanGarbage = () => {
+    const navigation = useNavigation<NavigationProp>();
+
+    const requestCameraPermission = async () => {
+      if (Platform.OS === "android") {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.CAMERA,
+            {
+              title: "Quyền truy cập camera",
+              message: "Ứng dụng cần dùng camera để chụp ảnh rác.",
+              buttonNeutral: "Hỏi lại sau",
+              buttonNegative: "Hủy",
+              buttonPositive: "OK",
+            }
+          );
+          return granted === PermissionsAndroid.RESULTS.GRANTED;
+        } catch (err) {
+          console.warn(err);
+          return false;
         }
       }
-    )
-  }
+      return true;
+    };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Scan Garbage</Text>
-      <Button title="Mở Camera" onPress={openCamera} />
+    const takePhotoAndDetect = async () => {
+      launchCamera({ mediaType: "photo", includeBase64: true }, async (response) => {
+        if (response.didCancel) {
+          console.log("🚫 Người dùng hủy chụp ảnh");
+          return;
+        }
+        if (response.assets && response.assets[0].base64) {
+          const base64Image = response.assets[0].base64;
 
-      {photo && (
-        <Image
-          source={{ uri: photo }}
-          style={styles.image}
-        />
-      )}
-    </View>
-  )
-}
+          try {
+            const res = await fetch("http://192.168.1.34:5000/detect", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ image: base64Image }),
+            });
 
-export default ScanGarbage
+            const data = await res.json();
+            console.log("✅ Kết quả từ API:", data.image_base64);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 22,
-    marginBottom: 20,
-  },
-  image: {
-    width: 300,
-    height: 400,
-    marginTop: 20,
-    borderRadius: 10,
-  },
-})
+            // 🟢 Map API data về đúng kiểu ScanResult
+           const scanResult: ScanResult = {
+            photo: "data:image/jpeg;base64," + base64Image,
+            processedPhoto: "data:image/jpeg;base64," + data.image_base64, 
+            detections: data.detections || [],
+          };
+          console.log("🔵 scanResult:", scanResult);
+
+          // ✅ Điều hướng sang ResultScreen
+          navigation.replace("ResultScreen", { scanResult });
+          } catch (err) {
+            console.error("❌ Lỗi khi gọi API:", err);
+          }
+        }
+      });
+    };
+
+    useEffect(() => {
+      const openCam = async () => {
+        const hasPermission = await requestCameraPermission();
+        if (hasPermission) {
+          takePhotoAndDetect();
+        } else {
+          console.log("🚫 Không có quyền camera");
+        }
+      };
+      openCam();
+    }, []);
+
+    return null;
+  };
+
+  export default ScanGarbage;

@@ -6,19 +6,9 @@ type RootStackParamList = {
   register: undefined;
   ScanGarbage: undefined;
   PhoneAuth: undefined;
-//   loginNote: undefined;
-//   RegisterNote: undefined;
-//   category:undefined|{  onSelectCategory: (category: { categoryId: string; type: 'income' | 'expense' }) => void};
-//   addcategory:undefined;
-//   chooseIcon:{ onSelectIcon: (iconName: string) => void } ;
-//   detailTransactions:{id:string};
-//   Chart:{selectedMonth:number};
-//   Transactions:undefined;
-//   CreateBudget:undefined;
-//   forgotPassword:undefined;
-//   info:undefined;
-//   AllTrans:undefined;
-//   Mess:undefined;
-//   Chat:undefined;
-//   Findpassword:undefined;
+  ResultScreen: { scanResult: ScanResult };
+  setting: undefined;
+  // PaymentQRCode: { points: number }; // Thêm định nghĩa cho PaymentQRCode
+  PaymentQRCode: undefined;
+  ScanQRCode: undefined;
 };

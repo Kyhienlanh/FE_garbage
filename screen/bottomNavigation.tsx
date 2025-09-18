@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './HomeScreen';
 import ScanGarbage from './ScanGarbage';
+import setting from './setting';
 const Tab=createBottomTabNavigator();
 
 const bottomNavigation = () => {
@@ -26,7 +27,7 @@ const bottomNavigation = () => {
             case 'Reports':
               iconName = focused ? 'bar-chart' : 'bar-chart-outline';
               break;
-            case 'Profile':
+            case 'setting':
               iconName = focused ? 'person' : 'person-outline';
               break;
             default:
@@ -54,14 +55,14 @@ const bottomNavigation = () => {
               style={styles.fabButton}
               activeOpacity={0.7}
             >
-              <Ionicons name="add" size={32} color="#fff" />
+              <Ionicons name="camera" size={32} color="#fff" />
             </TouchableOpacity>
           ),
           animation:'fade'
         }}
       />
       <Tab.Screen name="Reports" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={HomeScreen} />
+      <Tab.Screen name="setting" component={setting} />
       
     </Tab.Navigator>
   );
