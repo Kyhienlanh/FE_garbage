@@ -14,6 +14,9 @@ import ResultScreen from './screen/ResultScreen';
 import setting from './screen/setting';
 import PaymentQRCode from './screen/PaymentQRCode';
 import ScanQRCode from './screen/ScanQRCode';
+import pointsGarbage from './screen/pointsGarbage';
+import ScheduleGarbage from './screen/ScheduleGarbage';
+import ScanTrash from './screen/ScanTrash';
 function App() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
@@ -30,6 +33,9 @@ function App() {
         <Stack.Screen name="setting" component={setting} />
         <Stack.Screen name="PaymentQRCode" component={PaymentQRCode} />
         <Stack.Screen name="ScanQRCode" component={ScanQRCode} />
+        <Stack.Screen name="pointsGarbage" component={pointsGarbage} />
+        <Stack.Screen name="ScheduleGarbage" component={ScheduleGarbage} />
+        <Stack.Screen name="ScanTrash" component={ScanTrash} />
       </Stack.Navigator>
     </NavigationContainer>
   );

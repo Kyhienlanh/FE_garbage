@@ -2,7 +2,7 @@
   import { PermissionsAndroid, Platform } from "react-native";
   import { launchCamera } from "react-native-image-picker";
   import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-  import { useNavigation } from "@react-navigation/native";
+  import { useFocusEffect, useNavigation } from "@react-navigation/native";
   import { ScanResult } from "../types/Detection"; // 👈 import interface
 
   type NavigationProp = NativeStackNavigationProp<RootStackParamList, "ScanGarbage">;
@@ -42,7 +42,7 @@
           const base64Image = response.assets[0].base64;
 
           try {
-            const res = await fetch("http://192.168.1.34:5000/detect", {
+            const res = await fetch("http://10.29.177.74:5000/detect", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ image: base64Image }),
@@ -60,14 +60,18 @@
           console.log("🔵 scanResult:", scanResult);
 
           // ✅ Điều hướng sang ResultScreen
-          navigation.replace("ResultScreen", { scanResult });
+          navigation.push("ResultScreen", { scanResult });
           } catch (err) {
             console.error("❌ Lỗi khi gọi API:", err);
           }
         }
       });
     };
-
+    useFocusEffect(
+      React.useCallback(() => {
+        takePhotoAndDetect();
+      }, [])
+    );
     useEffect(() => {
       const openCam = async () => {
         const hasPermission = await requestCameraPermission();

@@ -87,11 +87,11 @@ const HomeScreen = () => {
 
         {/* Menu 3 ô vuông */}
         <View style={styles.squareMenu}>
-          <TouchableOpacity style={[styles.squareItem, { backgroundColor: '#f58220' }]}>
+          <TouchableOpacity style={[styles.squareItem, { backgroundColor: '#f58220' }]} onPress={()=>navigation.navigate('pointsGarbage')}>
             <Ionicons name="gift-outline" size={24} color="white" />
             <Text style={styles.squareText}>Đổi rác lấy quà</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.squareItem, { backgroundColor: '#007bff' }]}>
+          <TouchableOpacity style={[styles.squareItem, { backgroundColor: '#007bff' }]} onPress={()=>navigation.navigate('ScheduleGarbage')}>
             <Ionicons name="calendar-outline" size={24} color="white" />
             <Text style={styles.squareText}>Đặt lịch thu gom</Text>
           </TouchableOpacity>

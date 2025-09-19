@@ -11,4 +11,7 @@ type RootStackParamList = {
   // PaymentQRCode: { points: number }; // Thêm định nghĩa cho PaymentQRCode
   PaymentQRCode: undefined;
   ScanQRCode: undefined;
+  pointsGarbage: undefined;
+  ScheduleGarbage: undefined;
+  ScanTrash: undefined;
 };
