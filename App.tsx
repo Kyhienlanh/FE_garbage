@@ -31,8 +31,8 @@ function App() {
         <Stack.Screen name="PhoneAuth" component={PhoneAuth} />
         <Stack.Screen name="ResultScreen" component={ResultScreen} />
         <Stack.Screen name="setting" component={setting} />
-        <Stack.Screen name="PaymentQRCode" component={PaymentQRCode} />
-        <Stack.Screen name="ScanQRCode" component={ScanQRCode} />
+        <Stack.Screen name="PaymentQRCode" component={PaymentQRCode} options={{headerShown:false}}/>
+        <Stack.Screen name="ScanQRCode" component={ScanQRCode} options={{headerShown:false}}/>
         <Stack.Screen name="pointsGarbage" component={pointsGarbage} />
         <Stack.Screen name="ScheduleGarbage" component={ScheduleGarbage} />
         <Stack.Screen name="ScanTrash" component={ScanTrash} />
