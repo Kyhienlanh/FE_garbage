@@ -14,4 +14,6 @@ type RootStackParamList = {
   pointsGarbage: undefined;
   ScheduleGarbage: undefined;
   ScanTrash: undefined;
+  inputOTP:undefined;
+  PostSchedule:undefined;
 };

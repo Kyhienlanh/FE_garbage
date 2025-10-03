@@ -1,11 +1,11 @@
 export interface WasteCollectionSchedule{
-    ScheduleID: number;
-    UserID: number;
-    Latitude: number;
-    Longitude: number;
+    scheduleID: number;
+    userID: number;
+    latitude: number;
+    longitude: number;
     wasteType: string;
-    ScheduledDate: string|Date;
-    Status: string;
-    Notes: string;
-    CreatedAt: string|Date;
+    scheduledDate: string|Date;
+    status: string;
+    notes: string;
+    createdAt: string|Date;
 }

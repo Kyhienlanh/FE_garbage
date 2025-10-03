@@ -17,18 +17,20 @@ import ScanQRCode from './screen/ScanQRCode';
 import pointsGarbage from './screen/pointsGarbage';
 import ScheduleGarbage from './screen/ScheduleGarbage';
 import ScanTrash from './screen/ScanTrash';
+import inputOTP from './screen/inputOTP';
+import PostSchedule from './screen/PostSchedule';
 function App() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
     <NavigationContainer>
       <Stack.Navigator>
-         <Stack.Screen name="login" component={login} options={{headerShown:false}}/>
+        <Stack.Screen name="PhoneAuth" component={PhoneAuth} options={{headerShown:false}}/>
+        <Stack.Screen name="login" component={login} options={{headerShown:false}}/>
         <Stack.Screen name="bottomNavigation" component={bottomNavigation} options={{ headerShown:false}}/>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="user" component={user} />
         <Stack.Screen name="register" component={register} />
         <Stack.Screen name="ScanGarbage" component={ScanGarbage} /> 
-        <Stack.Screen name="PhoneAuth" component={PhoneAuth} />
         <Stack.Screen name="ResultScreen" component={ResultScreen} />
         <Stack.Screen name="setting" component={setting} />
         <Stack.Screen name="PaymentQRCode" component={PaymentQRCode} options={{headerShown:false}}/>
@@ -36,6 +38,8 @@ function App() {
         <Stack.Screen name="pointsGarbage" component={pointsGarbage} />
         <Stack.Screen name="ScheduleGarbage" component={ScheduleGarbage} />
         <Stack.Screen name="ScanTrash" component={ScanTrash} />
+        <Stack.Screen name="inputOTP" component={inputOTP}/>
+        <Stack.Screen name="PostSchedule" component={PostSchedule} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -14,6 +14,7 @@ export interface User {
   points: number;
   userIDfireBase: string;
   createdAt: string;
+  otp:string;
   posts:Post[];
   comments:Comment[];
   likes: Likes[];

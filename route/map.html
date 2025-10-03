@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>#map { height: 100%; width: 100%; }</style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map = L.map('map').setView([10.7769, 106.7009], 14);
+      L.tileLayer('https://a.tile.openstreetmap.de/{z}/{x}/{y}.png').addTo(map);
+    </script>
+  </body>
+</html>

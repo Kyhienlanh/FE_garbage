@@ -5,12 +5,15 @@ import auth from '@react-native-firebase/auth';
 import config from '../config/config';
 import { User } from '../types/User';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = () => {
   const user = auth().currentUser;
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
   const [infor,SetInfor]=useState<User>();
-    const getUser= async(uid:any) => {
+ 
+
+  const getUser= async(uid:any) => {
     try{
         const response = await fetch(`${config.API_BASE_URL}/Users/firebase/${uid}`);
           if (!response.ok) {
@@ -18,7 +21,8 @@ const HomeScreen = () => {
           }
         const json = await response.json();
         SetInfor(json);
-        console.log('✅ getUser json:', infor?.points);
+       await AsyncStorage.setItem("userID", String(json.userID));
+        console.log("✅ User UID lưu vào bộ nhớ:", json.userID);
     }catch(error){
       console.log('❌ getUser lỗi:', error);
     }
@@ -104,7 +108,7 @@ const HomeScreen = () => {
         {/* Banner */}
         <View style={styles.banner}>
           <Image
-            source={{ uri: 'https://via.placeholder.com/400x200' }}
+            source={require('../images/env.jpg')} // dùng require
             style={{ width: '100%', height: 150, borderRadius: 10 }}
             resizeMode="cover"
           />
@@ -112,7 +116,7 @@ const HomeScreen = () => {
 
         {/* Thanh menu cuối */}
         <View style={styles.bottomMenu}>
-          <TouchableOpacity style={[styles.bottomItem, { backgroundColor: '#00b894' }]}>
+          <TouchableOpacity style={[styles.bottomItem, { backgroundColor: '#00b894' }]} onPress={()=>navigation.navigate('PostSchedule')}>
             <Text style={styles.bottomText}>Hướng dẫn</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.bottomItem, { backgroundColor: '#fdcb6e' }]}>
@@ -121,6 +125,7 @@ const HomeScreen = () => {
           <TouchableOpacity style={[styles.bottomItem, { backgroundColor: '#fab1a0' }]}>
             <Text style={styles.bottomText}>Mời hàng xóm</Text>
           </TouchableOpacity>
+           
         </View>
       </ScrollView>
     </View>
