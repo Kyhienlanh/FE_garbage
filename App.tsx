@@ -19,6 +19,8 @@ import ScheduleGarbage from './screen/ScheduleGarbage';
 import ScanTrash from './screen/ScanTrash';
 import inputOTP from './screen/inputOTP';
 import PostSchedule from './screen/PostSchedule';
+import AdminScanQR from './screen/AdminScanQR';
+import StatsScreen from './screen/StatsScreen';
 function App() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
@@ -31,7 +33,7 @@ function App() {
         <Stack.Screen name="user" component={user} />
         <Stack.Screen name="register" component={register} />
         <Stack.Screen name="ScanGarbage" component={ScanGarbage} /> 
-        <Stack.Screen name="ResultScreen" component={ResultScreen} />
+        <Stack.Screen name="ResultScreen" component={ResultScreen} options={{headerShown:false}}/>
         <Stack.Screen name="setting" component={setting} />
         <Stack.Screen name="PaymentQRCode" component={PaymentQRCode} options={{headerShown:false}}/>
         <Stack.Screen name="ScanQRCode" component={ScanQRCode} options={{headerShown:false}}/>
@@ -40,6 +42,8 @@ function App() {
         <Stack.Screen name="ScanTrash" component={ScanTrash} />
         <Stack.Screen name="inputOTP" component={inputOTP}/>
         <Stack.Screen name="PostSchedule" component={PostSchedule} />
+        <Stack.Screen name="AdminScanQR" component={AdminScanQR}options={{headerShown:false}}/>
+        <Stack.Screen name="StatsScreen" component={StatsScreen}options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

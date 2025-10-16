@@ -73,8 +73,8 @@ const HomeScreen = () => {
         <View style={styles.circleMenu}>
           {[
             { icon: "qr-code-outline", label: "Nhận mã nạp điểm", onPress: ScanQRCode },
-            { icon: "star-outline", label: "Tích điểm MPoint", onPress: CollectPoints },
             { icon: "card-outline", label: "Thanh toán điểm", onPress: PaymentQRcode },
+            { icon: "star-outline", label: "Tích điểm MPoint", onPress: CollectPoints },
             { icon: "gift-outline", label: "Ưu đãi quanh đây", onPress: NearbyOffers }
           ].map((item, index) => (
             <TouchableOpacity 

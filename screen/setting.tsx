@@ -82,10 +82,9 @@ const Setting = () => {
         </View> */}
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.menuItem}>
+      <TouchableOpacity style={styles.menuItem} onPress={()=>navigation.navigate('AdminScanQR')}>
         <Icon name="call-outline" size={20} color="green" />
-        <Text style={styles.menuText}>Nhận trợ giúp
-</Text>
+        <Text style={styles.menuText}>Nhận trợ giúp</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.menuItem}>

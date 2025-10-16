@@ -16,4 +16,6 @@ type RootStackParamList = {
   ScanTrash: undefined;
   inputOTP:undefined;
   PostSchedule:undefined;
+  AdminScanQR:undefined;
+  StatsScreen:undefined;
 };

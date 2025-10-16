@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './HomeScreen';
 import ScanGarbage from './ScanGarbage';
 import setting from './setting';
+import StatsScreen from './StatsScreen';
 const Tab=createBottomTabNavigator();
 
 const bottomNavigation = () => {
@@ -61,7 +62,7 @@ const bottomNavigation = () => {
           animation:'fade'
         }}
       />
-      <Tab.Screen name="Reports" component={HomeScreen} />
+      <Tab.Screen name="Reports" component={StatsScreen} />
       <Tab.Screen name="setting" component={setting} />
       
     </Tab.Navigator>
