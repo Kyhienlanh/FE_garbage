@@ -4,7 +4,7 @@ import React from 'react'
 const StatsScreen = () => {
   return (
     <View>
-      <Text>StatsScreen</Text>
+      <Text>StatsScreendsadsadsad</Text>
     </View>
   )
 }
